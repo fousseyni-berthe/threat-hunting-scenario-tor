@@ -51,13 +51,14 @@ Searched for any `ProcessCommandLine` that contained the string "tor-browser-win
 
 ```kql
 
-DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe"  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
-```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b07ac4b4-9cb3-4834-8fac-9f5f29709d78">
+DeviceProcessEvents
+| where DeviceName == "fouss-threathun"
+| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-15.0.11"
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, SHA256, ActionType
+| order by Timestamp desc
 
+```
+<img width="906" height="79" alt="image" src="https://github.com/user-attachments/assets/30752ef6-708f-4460-a655-dee558b17beb" />
 ---
 
 ### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
@@ -67,14 +68,13 @@ Searched for any indication that user "employee" actually opened the TOR browser
 **Query used to locate events:**
 
 ```kql
-DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine  
+DeviceProcessEvents
+| where DeviceName == "fouss-threathun"
+| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, FolderPath, SHA256, ActionType 
 | order by Timestamp desc
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b13707ae-8c2d-4081-a381-2b521d3a0d8f">
-
+<img width="874" height="415" alt="image" src="https://github.com/user-attachments/assets/087921f3-17f2-418d-9bff-53a0c01284bf" />
 ---
 
 ### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
@@ -84,16 +84,15 @@ Searched for any indication the TOR browser was used to establish a connection u
 **Query used to locate events:**
 
 ```kql
-DeviceNetworkEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where InitiatingProcessAccountName != "system"  
-| where InitiatingProcessFileName in ("tor.exe", "firefox.exe")  
-| where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150", "80", "443")  
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath  
+DeviceNetworkEvents
+| where DeviceName == "fouss-threathun"
+| where InitiatingProcessFileName in ("tor.exe", "firefox.exe")
+| where RemotePort in ("9050", "9051", "9001", "9030", "9150", "80", "443")
+| project Timestamp, DeviceName, ActionType, InitiatingProcessAccountName, LocalIP, RemoteIP, RemotePort, InitiatingProcessFileName, RemoteUrl
 | order by Timestamp desc
-```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/87a02b5b-7d12-4f53-9255-f5e750d0e3cb">
 
+```
+<img width="876" height="317" alt="image" src="https://github.com/user-attachments/assets/54bf926e-97ca-475d-a46d-b57641f16689" />
 ---
 
 ## Chronological Event Timeline 
