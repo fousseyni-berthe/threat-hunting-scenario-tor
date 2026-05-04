@@ -6,7 +6,7 @@
 - [Scenario Creation](https://github.com/fousseyni-berthe/threat-hunting-scenario-tor/blob/main/threat-hunting-scenario-tor-event-creation.md)
 
 ## Platforms and Languages Leveraged
-- Windows 10 Virtual Machines (Microsoft Azure)
+- Windows 11 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
 - Tor Browser
@@ -27,7 +27,8 @@ Management suspects that some employees may be using TOR browsers to bypass netw
 
 ### 1. Searched the `DeviceFileEvents` Table
 
-Searched for any file that had the string "tor" in it and discovered what looks like the user "employee" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2024-11-08T22:27:19.7259964Z`. These events began at `2024-11-08T22:14:48.6065231Z`.
+Searched for files containing the string “tor” on device fouss-threathun for user “employee” starting at 2026-05-02 6:08:29 PM EDT.
+Findings show Tor-related file activity, including the creation of “tor-shopping-list.txt” on the desktop at 6:13:30 PM EDT, indicating potential user interaction with Tor-related content.
 
 **Query used to locate events:**
 
@@ -45,7 +46,7 @@ DeviceFileEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.0.1.exe". Based on the logs returned, at `2024-11-08T22:16:47.4484567Z`, an employee on the "threat-hunt-lab" device ran the file `tor-browser-windows-x86_64-portable-14.0.1.exe` from their Downloads folder, using a command that triggered a silent installation.
+Searched for any ProcessCommandLine that contained the string "tor-browser-windows-x86_64-portable-15.0.11". Based on the logs returned, at 2026-05-02T22:09:56.127332Z, an employee on the "fouss-threathun" device ran the file tor-browser-windows-x86_64-portable-15.0.11.exe from their Downloads folder, using a command that triggered a silent installation.
 
 **Query used to locate event:**
 
