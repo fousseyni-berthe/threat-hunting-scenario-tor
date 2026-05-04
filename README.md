@@ -27,8 +27,7 @@ Management suspects that some employees may be using TOR browsers to bypass netw
 
 ### 1. Searched the `DeviceFileEvents` Table
 
-Searched for files containing the string “tor” on device fouss-threathun for user “employee” starting at 2026-05-02 6:08:29 PM EDT.
-Findings show Tor-related file activity, including the creation of “tor-shopping-list.txt” on the desktop at 6:13:30 PM EDT, indicating potential user interaction with Tor-related content.
+Searched for files containing the string “tor” and identified activity indicating that the user “employee” downloaded and interacted with the Tor Browser. A file named “tor-shopping-list.txt” was observed on the desktop, with a creation at 2026-05-02T22:13:30.4563521Z. The related Tor activity began at 2026-05-02T22:08:29.5698282Z..
 
 **Query used to locate events:**
 
@@ -64,7 +63,7 @@ DeviceProcessEvents
 
 ### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
 
-Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2024-11-08T22:17:21.6357935Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
+Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2026-05-02T22:10:20.3073628Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
 
 **Query used to locate events:**
 
@@ -80,7 +79,7 @@ DeviceProcessEvents
 
 ### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
 
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2024-11-08T22:18:01.1246358Z`, an employee on the "threat-hunt-lab" device successfully established a connection to the remote IP address `176.198.159.33` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
+Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2026-05-02T22:10:39.4767681Z`, an employee on the "fouss-threathun" device successfully established a connection from the internal IP address `10.3.0.25 ` to the remote IP address `171.25.193.36 ` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
 
 **Query used to locate events:**
 
